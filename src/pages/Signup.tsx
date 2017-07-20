@@ -3,34 +3,59 @@ import axios from 'axios';
 import constants from '../constants';
 import { Grid, Row, Col, FormGroup, ControlLabel, FormControl, HelpBlock, Button } from 'react-bootstrap';
 import FacebookLogin from 'react-facebook-login';
+import { Navigate } from '../helper/navigator'
 
 const style = {
     'login-container': {
         'margin': '10px'
     },
-    'row': {
-        width: 'auto',
-        border: '1px solid blue'
+    'signup-header': {
+        'font-size': '2em'
     }
 }
 
-export class Login extends React.Component<any, any> {
+export class Signup extends React.Component<any, any> {
     constructor () {
         super();
         this.state = {
             isLoading: false,
-            loginText: 'Login'
+            signupText: 'Sign up',
+            username: '',
+            password: ''
         }
+        this.handleSignup = this.handleSignup.bind(this);
+        this.onChangeUsername = this.onChangeUsername.bind(this);
+        this.onChangePassword = this.onChangePassword.bind(this);
     }
 
-    handleClick() {
-        this.setState({isLoading: true, loginText: 'Please wait'});
+    onChangeUsername (event: any) {
+        this.setState({username: event.target.value});
+    }
 
-        // This probably where you would have an `ajax` call
-        setTimeout(() => {
-        // Completed of async action, set loading state back
-            this.setState({isLoading: false, loginText: 'Login'});
-        }, 2000);
+    onChangePassword (event: any) {
+        this.setState({password: event.target.value});
+    }
+
+    handleSignup() {
+        this.setState({isLoading: true, signupText: 'Please wait'});
+
+        axios({
+            baseURL: constants.API_SERVER_URL,
+            method: 'post',
+            url: '/signup',
+            auth: {
+                username: this.state.username,
+                password: this.state.password
+            },
+            headers: {
+                'X-Login-Provider': 'Local'
+            }
+        }).then((res) => {
+            this.setState({isLoading: false, signupText: 'Please wait...'});
+            Navigate.toLogin();
+        }).catch((err) => {
+            console.log(err);
+        })
     }
 
     responseFacebook (response) {
@@ -44,10 +69,6 @@ export class Login extends React.Component<any, any> {
             })
     }
 
-    componentDidMount () {
-         
-    }
-
     render () {
         return (
             <div className="well" style={style['login-container']}>
@@ -57,11 +78,16 @@ export class Login extends React.Component<any, any> {
                     >
                         <Grid>
                             <Row>
+                                <Col md={4} mdPush={4}><span style={style['signup-header']}>Sign up</span></Col>
+                            </Row>
+                            <Row>
                                 <Col md={4} mdPush={4}>
                                     <ControlLabel>Username</ControlLabel>
                                     <FormControl
                                         type="text"
                                         placeholder="Username"
+                                        value={this.state.username}
+                                        onChange={this.onChangeUsername}
                                     />
                                     <FormControl.Feedback />
                                 </Col>
@@ -74,6 +100,8 @@ export class Login extends React.Component<any, any> {
                                     <ControlLabel>Password</ControlLabel>
                                     <FormControl
                                         type="password"
+                                        value={this.state.password}
+                                        onChange={this.onChangePassword}
                                         placeholder=""
                                     />
                                     <FormControl.Feedback />
@@ -86,20 +114,11 @@ export class Login extends React.Component<any, any> {
                                 <Col md={4} mdPush={4}>
                                     <Button bsStyle="success" bsSize="large"
                                         block
-                                        onClick={!this.state.isLoading ? this.handleClick.bind(this) : null}>{this.state.loginText}</Button>
+                                        onClick={!this.state.isLoading ? this.handleSignup : null}>{this.state.signupText}</Button>
                                 </Col>
                             </Row>
                             <Row>
                                 <Col md={4} mdPush={4}>&nbsp;</Col>
-                            </Row>
-                            <Row>
-                                <Col md={4} mdPush={4}>
-                                    <FacebookLogin
-                                        appId="334135483704985"
-                                        autoLoad={true}
-                                        fields="name,email,picture"
-                                        callback={this.responseFacebook.bind(this)} />     
-                                </Col>
                             </Row>
                         </Grid>
                     </FormGroup>
@@ -108,4 +127,3 @@ export class Login extends React.Component<any, any> {
         )
     }
 }
-

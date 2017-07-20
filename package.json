@@ -7,12 +7,13 @@
     "build": "webpack",
     "dev:server": "webpack && webpack-dev-server --content-base . --inline --hot",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "chokidar 'src/**/*' -c 'npm run dev:server'"
+    "dev": "chokidar 'src/**/*' -c 'npm run build'"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/axios": "^0.14.0",
+    "@types/node": "^8.0.14",
     "@types/react": "^15.0.34",
     "@types/react-dom": "^15.5.1",
     "awesome-typescript-loader": "^3.2.1",
@@ -26,9 +27,13 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "lodash": "^4.17.4",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.1",
     "react-dom": "^15.6.1",
-    "react-facebook-login": "^3.6.2"
+    "react-facebook-login": "^3.6.2",
+    "react-google-maps": "^7.2.0",
+    "react-quill": "^1.0.0",
+    "react-router": "^3.0.0"
   }
 }
