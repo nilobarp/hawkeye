@@ -17,11 +17,13 @@ export class Editor extends React.Component<any, any> {
             lng: 0,
             cuisine: '',
             summary: '',
+            imageKey: '',
             story: '',
             errorMessage: ''
         }
         this.handleCuisineChange = this.handleCuisineChange.bind(this)
         this.handleSummaryChange = this.handleSummaryChange.bind(this);
+        this.handleImageKeyChange = this.handleImageKeyChange.bind(this);
         this.handleStoryChange = this.handleStoryChange.bind(this);
         this.handlePublish = this.handlePublish.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -33,6 +35,10 @@ export class Editor extends React.Component<any, any> {
 
     handleSummaryChange(event) {
         this.setState({ summary: event.target.value })
+    }
+
+    handleImageKeyChange(event) {
+        this.setState({ imageKey: event.target.value })
     }
 
     handleStoryChange(event) {
@@ -60,7 +66,6 @@ export class Editor extends React.Component<any, any> {
                 }
             }).then((res) => {
                 if (res.status === 200) {
-                    console.log(res);
                     localStorage.setItem('USER_STORIES', res.data);
                     Navigate.toConsole();
                 }
@@ -129,6 +134,16 @@ export class Editor extends React.Component<any, any> {
                                         type="text"
                                         value={this.state.summary}
                                         onChange={this.handleSummaryChange}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col md={12}>
+                                    <ControlLabel>Image Key</ControlLabel>
+                                    <FormControl
+                                        type="text"
+                                        value={this.state.imageKey}
+                                        onChange={this.handleImageKeyChange}
                                     />
                                 </Col>
                             </Row>

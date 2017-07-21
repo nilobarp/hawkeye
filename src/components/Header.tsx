@@ -8,7 +8,8 @@ export interface HeaderProps { title: string }
 const styles = {
     'wrapper': {
         display: 'flex',
-        margin: '5px'
+        margin: '5px',
+        borderBottom: 'thin solid #777'
     },
     'logo': {
         fontSize: '2em',

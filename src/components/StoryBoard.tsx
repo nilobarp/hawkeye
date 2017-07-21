@@ -1,5 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
+import * as _ from 'lodash';
 import constants from '../constants';
 import {
     withGoogleMap,
@@ -199,36 +200,12 @@ export class StoryBoard extends React.Component<any, any> {
         this.handleMarkerClose = this.handleMarkerClose.bind(this);
     }
 
-    componentWillMount() {
-
-    }
-
-    private createMarkers(data: any[]) {
-        let markers = [];
-        data.map((datum) => {
-            markers.push({
-                position: new google.maps.LatLng(datum.lat, datum.lng),
-                showInfo: false,
-                infoContent: (
-                    <div>
-                        <h5>{datum.cuisine}</h5>
-                        <div>{datum.summary}</div>
-                        <hr/>
-                        <div>{datum.story}</div>
-                    </div>
-                )
-            });
-        });
-        this.setState({ markers: markers });
-    }
-
     componentDidMount() {
         axios({
             baseURL: constants.API_SERVER_URL,
             method: 'get',
             url: '/localisedStories'
         }).then((res) => {
-            console.log(res);
             if (res.status === 200) {
                 this.createMarkers(res.data);
                 geolocation.getCurrentPosition((position) => {
@@ -289,6 +266,40 @@ export class StoryBoard extends React.Component<any, any> {
                 return marker;
             }),
         });
+    }
+
+    private createMarkers(data: any[]) {
+        let markers = [];
+        data.map((datum) => {
+            markers.push({
+                position: new google.maps.LatLng(datum.lat, datum.lng),
+                showInfo: false,
+                infoContent: (
+                    <div>
+                        <h5>{datum.cuisine}</h5>
+                        <div>{datum.summary}</div>
+                        <hr/>
+                        <div>{datum.story}</div>
+                        <hr/>
+                        <div><a href="#">Get Direction</a>&nbsp;|&nbsp;<a href="#">Add to favourite</a></div>
+                    </div>
+                )
+            });
+        });
+        this.setState({ markers: markers });
+    }
+
+    private async fetchFoodImage(key) {
+        let apiKey = '2hyxy4dp5dztq738d9u9dje9';
+        let results = await axios({
+                        baseURL: 'https://api.gettyimages.com/v3',
+                        method: 'get',
+                        url: '/search/images?phrase=' + key,
+                        headers: {
+                            'Api-Key': apiKey
+                        }
+                    });
+        return results.data.images;
     }
 
     render() {

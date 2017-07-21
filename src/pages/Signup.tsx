@@ -58,17 +58,6 @@ export class Signup extends React.Component<any, any> {
         })
     }
 
-    responseFacebook (response) {
-       console.log(response);
-       axios.get(constants.API_SERVER_URL)
-            .then(res => {
-                console.log('response', res);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    }
-
     render () {
         return (
             <div className="well" style={style['login-container']}>

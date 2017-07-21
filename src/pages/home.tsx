@@ -17,30 +17,12 @@ export class Home extends React.Component<any, any> {
 
     componentWillMount () {
         this.geolocateUser();
-        // axios({
-        //     baseURL: constants.API_SERVER_URL,
-        //     method: 'get',
-        //     url: '/story',
-        //     headers: {
-        //         'Authorization': 'JWT ' + Auth.getToken()
-        //     }
-        // }).then((res) => {
-        //     if (res.status === 200) {
-        //         console.log(res);
-        //         this.setState({
-        //             stories: res.data
-        //         })
-        //     }
-        // }).catch((err) => {
-        //     console.log(err);
-        // });
     }
 
     geolocateUser () {
         var startPos;
         var geoSuccess = function(position) {
             startPos = position;
-            console.log(startPos.coords.latitude, startPos.coords.longitude)
         };
         navigator.geolocation.getCurrentPosition(geoSuccess);
     }

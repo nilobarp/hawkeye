@@ -68,7 +68,6 @@ export class MapSearchBox extends React.Component<any, any> {
         this.handlePlacesChanged = this.handlePlacesChanged.bind(this);
 
         this.props = arguments[0];
-        console.log('props', this.props);
     }
 
   handleMapMounted(map) {
