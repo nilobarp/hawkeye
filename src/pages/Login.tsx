@@ -8,10 +8,10 @@ import { Navigate } from '../helper/navigator';
 
 const style = {
     'login-container': {
-        'margin': '10px'
+        margin: '10px'
     },
     'login-header': {
-        'font-size': '2em'
+        fontSize: '2em'
     },
     'row': {
         width: 'auto',
@@ -94,7 +94,7 @@ export class Login extends React.Component<any, any> {
                             </Row>
                             <Row>
                                 <Col md={4} mdPush={4}>
-                                    <ControlLabel>Username</ControlLabel>
+                                    <ControlLabel>Email</ControlLabel>
                                     <FormControl
                                         type="text"
                                         value={this.state.username}

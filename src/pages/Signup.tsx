@@ -82,10 +82,9 @@ export class Signup extends React.Component<any, any> {
                             </Row>
                             <Row>
                                 <Col md={4} mdPush={4}>
-                                    <ControlLabel>Username</ControlLabel>
+                                    <ControlLabel>Email</ControlLabel>
                                     <FormControl
                                         type="text"
-                                        placeholder="Username"
                                         value={this.state.username}
                                         onChange={this.onChangeUsername}
                                     />
