@@ -5,20 +5,20 @@ class Navigate {
         browserHistory.push(path);
     }
 
-    static toHome() {
-        browserHistory.push('/');
+    static toConsole() {
+        browserHistory.push('/console');
     }
 
     static toLogin () {
-        browserHistory.push('/login');
+        browserHistory.push('/console/login');
     }
 
     static toSignup () {
-        browserHistory.push('/signup');
+        browserHistory.push('/console/signup');
     }
 
     static toEditor () {
-        browserHistory.push('/editor');
+        browserHistory.push('/console/editor');
     }
 }
 

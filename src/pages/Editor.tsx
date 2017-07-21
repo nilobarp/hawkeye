@@ -5,7 +5,6 @@ import { Grid, Row, Col, FormGroup, ControlLabel, FormControl, HelpBlock, Button
 import FacebookLogin from 'react-facebook-login';
 import { Auth } from '../helper/auth';
 import { Navigate } from '../helper/navigator';
-import { SimpleMap } from '../components/GoogleMap';
 import { MapSearchBox } from '../components/MapSearch';
 
 declare var google: any;
@@ -63,7 +62,7 @@ export class Editor extends React.Component<any, any> {
                 if (res.status === 200) {
                     console.log(res);
                     localStorage.setItem('USER_STORIES', res.data);
-                    Navigate.toHome();
+                    Navigate.toConsole();
                 }
             }).catch((err) => {
                 console.log(err);
@@ -72,7 +71,7 @@ export class Editor extends React.Component<any, any> {
     }
 
     handleCancel () {
-        Navigate.toHome();
+        Navigate.toConsole();
     }
 
     private validateStory() {

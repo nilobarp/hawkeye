@@ -17,12 +17,12 @@ class Auth {
 
     check (nextState, replace) {
         if (localStorage.getItem(USER_TOKEN) === null) {
-            replace('/login');
+            replace('/console/login');
         }
     }
 
     redirect () {
-        Navigate.toHome();
+        Navigate.toConsole();
     }
 
     getToken () {
